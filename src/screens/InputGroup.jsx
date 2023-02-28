@@ -7,9 +7,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 10,
         paddingVertical: 15,
-        width: '30%',
-        backgroundColor: 'red',
-        borderColor: 'blue'
+        width: '40%',
+        backgroundColor: 'darkgrey',
+        margin: 25
        
     },
     view: {
@@ -19,9 +19,9 @@ const styles = StyleSheet.create({
     textAsis: {
         fontSize: 15,
         textAlign: 'center',
-        color: 'aliceblue',
+        color: 'black',
         alignSelf: 'center',
-        borderRadius: 10,
+        borderRadius: 15,
     },
     textEmp: {
         fontSize: 50,
@@ -32,11 +32,13 @@ const styles = StyleSheet.create({
     },
     input: {
         width: 230,
-        height: 40,
+        height: 50,
         margin: 50,
-        borderWidth: 1,
+        borderWidth: 4,
         padding: 10,
-        alignSelf: 'center'
+        alignSelf: 'center',
+        borderColor: 'aliceblue',
+        fontSize: 18
     },
 
 })
@@ -78,7 +80,7 @@ const InputGroup = () => {
             style={{...styles.button}}
             >
                 <Text
-                style={{...styles.textAsis}}> HOla </Text>
+                style={{...styles.textAsis}}> Siguiente </Text>
             </TouchableOpacity>
 
 
