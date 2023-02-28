@@ -7,22 +7,26 @@ import InputGroup from './InputGroup'
 const styles = StyleSheet.create({
     button: {
         alignSelf: 'center',
-        borderRadius: 10,
+        borderRadius: 15,
         paddingVertical: 15,
-        width: '30%',
+        width: '40%',
+        backgroundColor: '#f0ffff',
+        margin: 40
     },
     view: {
      flex: 1,
      backgroundColor: '#003593'
     }, 
     textAsis: {
-        fontSize: 45,
+        fontSize: 50,
         textAlign: 'center',
-        color: 'aliceblue'
+        color: 'aliceblue', 
+        fontWeight: 'bold'
     },
     textEmp: {
-        fontSize: 20,
-        textAlign: 'center'
+        fontSize: 22,
+        textAlign: 'center',
+        color: 'black',
     }
   })
 
@@ -34,25 +38,25 @@ export const Welcome = () => {
     <View style={{...styles.view}}>
 
     <Image
-    style={{ width: 412, height: 312, marginBottom: 15, }}
-    source = {{uri: 'https://utc.mx/wp-content/uploads/2020/02/BECA-UTC.jpg'}}
+    style={{ width: 512, height: 312, alignSelf: 'center' }}
+    source = {require('../imgs/logoUTC.png')}
     />
 <Text
 style={{
     ...styles.textAsis
 }}
 >Asistencia</Text>
+
 <Image
-style={{}}
-source={{}} 
+style={{width: 250, height: 230, alignSelf: 'center', marginTop: 40}}
+source={require('../imgs/Asis.png')} 
 />
 
 <TouchableOpacity
 onPress={ () => navigation.navigate("Input Group")}
 style={{
     ...styles.button,
-    backgroundColor: '#f0ffff',
-    margin: 300
+   
 }}
 
 >
