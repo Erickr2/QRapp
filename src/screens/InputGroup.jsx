@@ -1,7 +1,8 @@
-import { useNavigation } from '@react-navigation/native';
+import { FileSystemSessionType } from 'expo-file-system';
 import React from 'react';
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-const xlsx = require('xlsx')
+import { Image, PermissionsAndroid, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+const RNFS = require('react-native-fs');
+import XLSX from 'xlsx';
 
 const styles = StyleSheet.create({
     button: {
@@ -11,7 +12,7 @@ const styles = StyleSheet.create({
         width: '40%',
         backgroundColor: 'darkgrey',
         margin: 25
-       
+
     },
     view: {
         flex: 1,
@@ -48,28 +49,68 @@ const InputGroup = () => {
 
     const [text, onChangeText] = React.useState('');
 
-    const navigation = useNavigation();
+    const exportDataToExcel = () => {
+      
+        
+    // Created Sample data
+    let sample_data_to_export = [{id: '1', name: 'First User'},{ id: '2', name: 'Second User'}];
 
-    const students = [
-        {name: 'erick', age: 21, num: 5534504494},
-        {name: 'karen', age: 22, num: 5621250903 }
-    ]
+    let wb = XLSX.utils.book_new();
+    let ws = XLSX.utils.json_to_sheet(sample_data_to_export)    
+    XLSX.utils.book_append_sheet(wb,ws,"Users")
+    const wbout = XLSX.write(wb, {type:'binary', bookType:"xlsx"});
 
-    const CreateFileExcel = () => {
 
-   
-    
-        const WorkSheet = xlsx.utils.json_to_sheet(students);
-        const WorkBook = xlsx.utils.book_new();
-    
-        xlsx.utils.book_append_sheet(WorkBook, WorkSheet, "students")
-        xlsx.write(WorkBook,{bookType:"xlsx", type: "buffer"});
-    
-      xlsx.write(WorkBook, {bookType:'xlsx', type:'binary'});
-      xlsx.writeFile(WorkBook, "AsistenciaDATA.xlsx")
-    
+    // Write generated excel to Storage
+    RNFS.writeFile(RNFS.DownloadDirectoryPath + '/Data.csv', wbout, 'ascii')
+    .then((r)=>{
+     console.log('Success');
+    }).catch((e)=>{
+      console.log('Error', e);
+    });
+
+  }
+  const handleClick = async () => {
+
+    try{
+      // Check for Permission (check if permission is already given or not)
+      let isPermitedExternalStorage = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
+
+      if(!isPermitedExternalStorage){
+
+        // Ask for permission
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: "Storage permission needed",
+            message:'permitir uso de camara',
+            buttonNeutral: "Ask Me Later",
+            buttonNegative: "Cancel",
+            buttonPositive: "OK"
+          }
+        );
+
+        
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          // Permission Granted (calling our exportDataToExcel function)
+          exportDataToExcel();
+          console.log("Permission granted");
+        } else {
+          // Permission denied
+          console.log("Permission denied");
+        }
+      }else{
+         // Already have Permission (calling our exportDataToExcel function)
+         exportDataToExcel();
+      }
+    }catch(e){
+      console.log('Error while checking permission');
+      console.log(e);
+      return
     }
     
+    }
+
 
     return (
         <View style={{ ...styles.view }}>
@@ -88,7 +129,13 @@ const InputGroup = () => {
                 grupo
             </Text>
 
-
+            <TouchableOpacity
+                onPress={() => handleClick()}
+                style={{ ...styles.button }}
+            >
+                <Text
+                    style={{ ...styles.textAsis }}> Siguiente </Text>
+            </TouchableOpacity>
 
             <TextInput
                 style={{ ...styles.input }}
@@ -97,13 +144,7 @@ const InputGroup = () => {
                 placeholder="Ejemplo: ZLSIS2A"
             />
 
-            <TouchableOpacity
-            onPress={ () => CreateFileExcel(this)}
-            style={{...styles.button}}
-            >
-                <Text
-                style={{...styles.textAsis}}> Siguiente </Text>
-            </TouchableOpacity>
+          
         </View>
     )
 }
