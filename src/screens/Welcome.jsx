@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         width: '40%',
         backgroundColor: '#f0ffff',
-        margin: 40
+        margin: 25
     },
     view: {
      flex: 1,
