@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     textAsis: {
-        fontSize: 15,
+        fontSize: 20,
         textAlign: 'center',
         color: 'black',
         alignSelf: 'center',
@@ -53,7 +53,7 @@ const InputGroup = () => {
       
         
     // Created Sample data
-    let sample_data_to_export = [{id: '1', name: 'First User'},{ id: '2', name: 'Second User'}];
+    let sample_data_to_export = [{nombre:'erick', tel: 5534504494, id: 1},{nombre:'Karen', tel: 5621250903, id: 2}];
 
     let wb = XLSX.utils.book_new();
     let ws = XLSX.utils.json_to_sheet(sample_data_to_export)    
@@ -62,7 +62,7 @@ const InputGroup = () => {
 
 
     // Write generated excel to Storage
-    RNFS.writeFile(RNFS.DownloadDirectoryPath + '/Data.csv', wbout, 'ascii')
+    RNFS.writeFile(RNFS.DownloadDirectoryPath + '/informacion.csv', wbout, 'ascii')
     .then((r)=>{
      console.log('Success');
     }).catch((e)=>{
@@ -129,6 +129,13 @@ const InputGroup = () => {
                 grupo
             </Text>
 
+            <TextInput
+                style={{ ...styles.input }}
+                onChangeText={onChangeText}
+                value={text}
+                placeholder="Ejemplo: ZLSIS2A"
+            />
+
             <TouchableOpacity
                 onPress={() => handleClick()}
                 style={{ ...styles.button }}
@@ -137,12 +144,7 @@ const InputGroup = () => {
                     style={{ ...styles.textAsis }}> Siguiente </Text>
             </TouchableOpacity>
 
-            <TextInput
-                style={{ ...styles.input }}
-                onChangeText={onChangeText}
-                value={text}
-                placeholder="Ejemplo: ZLSIS2A"
-            />
+            
 
           
         </View>
