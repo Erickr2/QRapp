@@ -7,14 +7,14 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //screens
 import Welcome from '../src/screens/Welcome'
 import InputG from '../src/screens/InputGroup'
-import Prueba from '../src/screens/Prueba';
+import QrGenerator from '../src/screens/QrGenerator';
 
 const WelcomeStackNavigator = createNativeStackNavigator();
 
 function MyStack() {
     barcodeRecognized = ({ barcodes }) => {
         barcodes.forEach(barcode => console.warn(barcode.data))
-      };
+    };
     return (
         <WelcomeStackNavigator.Navigator
             initialRouteName='WelcomeScreen'
@@ -34,8 +34,8 @@ function MyStack() {
             />
 
             <WelcomeStackNavigator.Screen
-                name='prueba'
-                component={Prueba}
+                name='QRgenerator'
+                component={QrGenerator}
             />
 
 
@@ -57,7 +57,7 @@ function MyTabs() {
         >
             <tab.Screen name='Welcome' component={MyStack} />
             <tab.Screen name='InputGroup' component={InputG} />
-            <tab.Screen name='KAruchi' component={Prueba} />
+            <tab.Screen name='QRgenerator' component={QrGenerator} />
         </tab.Navigator>
     )
 }

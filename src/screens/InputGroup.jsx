@@ -1,5 +1,5 @@
 import { FileSystemSessionType } from 'expo-file-system';
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, PermissionsAndroid, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 const RNFS = require('react-native-fs');
 import XLSX from 'xlsx';
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 
 const InputGroup = () => {
 
-    const [text, onChangeText] = React.useState('');
+    const [text, onChangeText] = useState('');
 
     const exportDataToExcel = () => {
       
