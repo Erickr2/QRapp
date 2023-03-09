@@ -17,13 +17,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#003593'
     },
-    textAsis: {
+    textAttendance: {
         fontSize: 50,
         textAlign: 'center',
         color: 'aliceblue',
         fontWeight: 'bold'
     },
-    textEmp: {
+    textButton: {
         fontSize: 22,
         textAlign: 'center',
         color: 'black',
@@ -50,7 +50,7 @@ export const Welcome = () => {
 
             <Text
                 style={{
-                    ...styles.textAsis
+                    ...styles.textAttendance
                 }}
             >Asistencia</Text>
 
@@ -70,7 +70,7 @@ export const Welcome = () => {
 
             >
                 <Text
-                    style={{ ...styles.textEmp }}
+                    style={{ ...styles.textButton }}
                 >Empezar</Text>
             </TouchableOpacity>
 
@@ -82,7 +82,7 @@ export const Welcome = () => {
                 }}
             >
                 <Text
-                    style={{ ...styles.textEmp }}
+                    style={{ ...styles.textButton }}
                 >Generar QR</Text>
             </TouchableOpacity>
             </View>

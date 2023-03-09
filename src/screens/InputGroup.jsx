@@ -18,14 +18,14 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white'
     },
-    textAsis: {
+    textButton: {
         fontSize: 20,
         textAlign: 'center',
         color: 'black',
         alignSelf: 'center',
         borderRadius: 15,
     },
-    textEmp: {
+    bigText: {
         fontSize: 50,
         fontWeight: 'bold',
         textAlign: 'center',
@@ -115,17 +115,17 @@ const InputGroup = () => {
     return (
         <View style={{ ...styles.view }}>
             <Image
-                style={{ width: 250, height: 250, alignSelf: 'center', margin: 20 }}
-                source={{ uri: 'https://www.enroll-u.com/_i/5/4/c9c90872-4cfb-11e9-92e9-0231b47980f0.jpeg?w=276&h=276&fit=crop&s=276' }}
+                style={{ width: 250, height: 220, alignSelf: 'center', margin: 20 }}
+                source={require('../imgs/logoUTC2.png')}
             />
 
-            <Text style={{ ...styles.textEmp }}>
+            <Text style={{ ...styles.bigText }}>
                 Ingresa el
             </Text>
-            <Text style={{ ...styles.textEmp }}>
+            <Text style={{ ...styles.bigText }}>
                 ID del
             </Text>
-            <Text style={{ ...styles.textEmp }}>
+            <Text style={{ ...styles.bigText }}>
                 grupo
             </Text>
 
@@ -141,7 +141,7 @@ const InputGroup = () => {
                 style={{ ...styles.button }}
             >
                 <Text
-                    style={{ ...styles.textAsis }}> Siguiente </Text>
+                    style={{ ...styles.textButton }}> Siguiente </Text>
             </TouchableOpacity>
 
             
