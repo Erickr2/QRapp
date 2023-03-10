@@ -42,11 +42,14 @@ const styles = StyleSheet.create({
 
 })
 
-const QrGenerator = () => {
+const QrGenerator = (initialInput = '') => {
 
-    const [inputText, setInputText] = useState('');
+    const [inputText, setInputText] = useState(initialInput);
     const [qrvalue, setQrvalue] = useState('');
-    const [qrvalue2, setQrvalue2] = useState('');
+
+    const reset = () => {
+        setInputText(initialInput)
+    }
 
     return (
         <View style={{ ...styles.view }}>
@@ -64,26 +67,18 @@ const QrGenerator = () => {
             <Text style={{...styles.textDescription}}>
                 Inserte la información que se le pide a contuniación.
             </Text>
-            <TextInput
-                style={{...styles.input}}
-                onChangeText={
-                    (inputText) => setInputText(inputText)
-                }
-                placeholder="Nombre del alumno"
-                value={inputText}
-            />
 
             <TextInput
                 style={{...styles.input}}
+                placeholder="Nombre del alumno"
+                value={inputText}
                 onChangeText={
                     (inputText) => setInputText(inputText)
-                }
-                placeholder="ID del grupo"
-                value={inputText}
+                  }
             />
 
             <TouchableOpacity
-                onPress={() => setQrvalue(inputText)}
+                onPress={() =>  setQrvalue(inputText, reset())}
                 style={{ ...styles.button }}
             >
                 <Text

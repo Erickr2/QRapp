@@ -83,7 +83,6 @@ const InputGroup = () => {
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
           {
             title: "Storage permission needed",
-            message:'permitir uso de camara',
             buttonNeutral: "Ask Me Later",
             buttonNegative: "Cancel",
             buttonPositive: "OK"
@@ -137,7 +136,7 @@ const InputGroup = () => {
             />
 
             <TouchableOpacity
-                onPress={() => handleClick()}
+                /* onPress={() => handleClick()} */ //aqui se puede probar el modulo de cvs
                 style={{ ...styles.button }}
             >
                 <Text
