@@ -62,7 +62,7 @@ const InputGroup = () => {
 
 
     // Write generated excel to Storage
-    RNFS.writeFile(RNFS.DownloadDirectoryPath + '/informacion.csv', wbout, 'ascii')
+    RNFS.writeFile(RNFS.DownloadDirectoryPath + text, wbout, 'ascii')
     .then((r)=>{
      console.log('Success');
     }).catch((e)=>{
