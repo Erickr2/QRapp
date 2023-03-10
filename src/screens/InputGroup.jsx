@@ -53,7 +53,7 @@ const InputGroup = () => {
       
         
     // Created Sample data
-    let sample_data_to_export = [{nombre:'erick', tel: 5534504494, id: 1},{nombre:'Karen', tel: 5621250903, id: 2}];
+    let sample_data_to_export = [{nombre:'erick', tel: 5534504494, id: 1},{nombre:'Karen', tel: 5621250903, id: 2}]; //aqui vamos a recibir la dat del lector de QRs
 
     let wb = XLSX.utils.book_new();
     let ws = XLSX.utils.json_to_sheet(sample_data_to_export)    
