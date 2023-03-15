@@ -1,7 +1,6 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import InputGroup from './InputGroup'
 
 
 const styles = StyleSheet.create({
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
 
     }
-    
+
 })
 
 export const Welcome = () => {
@@ -59,36 +58,31 @@ export const Welcome = () => {
                 source={require('../imgs/Asis.png')}
             />
 
-            <View style={{...styles.buttonView}}>
+            <View style={{ ...styles.buttonView }}>
 
-            <TouchableOpacity
-                onPress={() => navigation.navigate("Input Group")}
-                style={{
-                    ...styles.button,
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("Input Group")}
+                    style={{
+                        ...styles.button,
 
-                }}
+                    }}
+                >
+                    <Text
+                        style={{ ...styles.textButton }}
+                    >Empezar</Text>
+                </TouchableOpacity>
 
-            >
-                <Text
-                    style={{ ...styles.textButton }}
-                >Empezar</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-                onPress={() => navigation.navigate("QRgenerator")}
-                style={{
-                    ...styles.button,
-
-                }}
-            >
-                <Text
-                    style={{ ...styles.textButton }}
-                >Generar QR</Text>
-            </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate("QRgenerator")}
+                    style={{
+                        ...styles.button,
+                    }}
+                >
+                    <Text
+                        style={{ ...styles.textButton }}
+                    >Generar QR</Text>
+                </TouchableOpacity>
             </View>
-
-
-           
         </View>
     )
 }
