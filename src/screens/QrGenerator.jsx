@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native"
 import QrCode from 'react-native-qrcode-svg';
+const RNFS = require('react-native-fs');
+
 
 const styles = StyleSheet.create({
     view: {
@@ -13,11 +15,11 @@ const styles = StyleSheet.create({
     },
     button: {
         alignSelf: 'center',
-        borderRadius: 10,
+        borderRadius: 15,
         paddingVertical: 15,
         width: '40%',
-        backgroundColor: 'darkgrey',
-        margin: 25
+        backgroundColor: 'blue',
+        margin: 21
     },
     textButton: {
         fontSize: 22,
@@ -38,9 +40,16 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontWeight: 'bold',
         margin: 20
+    },
+    buttonView: {
+        flex: 1,
+        flexDirection: 'row'
+
     }
 
 })
+
+
 
 const QrGenerator = (initialInput = '') => {
 
@@ -50,6 +59,15 @@ const QrGenerator = (initialInput = '') => {
     const reset = () => {
         setInputText(initialInput)
     }
+
+    const DownloadQr = (inputText) => {
+        RNFS.writeFile(RNFS.DownloadDirectoryPath + `/${inputText}.png`, QrCode, 'ascii')
+        .then((r)=>{
+         console.log('QR descargado');
+        }).catch((e)=>{
+          console.log('Error', e);
+        });
+    } 
 
     return (
         <View style={{ ...styles.view }}>
@@ -64,26 +82,38 @@ const QrGenerator = (initialInput = '') => {
                 />
             </View>
 
-            <Text style={{...styles.textDescription}}>
+            <Text style={{ ...styles.textDescription }}>
                 Inserte la información que se le pide a contuniación.
             </Text>
 
             <TextInput
-                style={{...styles.input}}
+                style={{ ...styles.input }}
                 placeholder="Nombre del alumno"
                 value={inputText}
                 onChangeText={
                     (inputText) => setInputText(inputText)
-                  }
+                }
             />
 
+            <View style={{ ...styles.buttonView}}>
             <TouchableOpacity
-                onPress={() =>  setQrvalue(inputText, reset())}
+                onPress={() => setQrvalue(inputText, reset())}
                 style={{ ...styles.button }}
             >
                 <Text
-                    style={{ ...styles.textButton }}> Siguiente </Text>
+                    style={{ ...styles.textButton }}> Crear Qr </Text>
             </TouchableOpacity>
+
+            <TouchableOpacity
+                onPress={() => DownloadQr(reset())}
+                style={{ ...styles.button }}
+            >
+                <Text
+                    style={{ ...styles.textButton }}> Descargar Qr </Text>
+            </TouchableOpacity>
+            </View>
+
+            
         </View>
     )
 }
