@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { handleClick } from '../helpers/HandleClick';
+import {QRgenerator} from './QrGenerator';
 
 
 
@@ -79,7 +80,7 @@ const InputGroup = () => {
       />
 
       <TouchableOpacity
-        onPress={() => handleClick(text, reset())} //aqui se puede probar el modulo de cvs
+        onPress={() => navigation.navigate("QRgenerator")} //aqui se puede probar el modulo de cvs
         style={{ ...styles.button }}
       >
         <Text
