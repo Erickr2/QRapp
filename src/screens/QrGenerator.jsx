@@ -1,16 +1,20 @@
 import React, { useState, useRef, createRef } from 'react';
-import { View, Platform, PermissionsAndroid, Text } from 'react-native';
+import { View, Platform, PermissionsAndroid, Text, TouchableOpacity } from 'react-native';
 import styles from '../styles/styles';
 import QRCode from 'react-native-qrcode-svg'
 import Share from 'react-native-share'
 import RNFetchBlob from 'rn-fetch-blob'
-import  TextInput  from 'react-native/Libraries/Components/TextInput/TextInput';
-import  Button  from 'react-native/Libraries/Components/Button';
+import TextInput from 'react-native/Libraries/Components/TextInput/TextInput';
 
 function QRgenerator() {
 
-    const [QRvalue, setQRValue] = useState('lintang');
+    const [QRvalue, setQRValue] = useState('');
     const [QRImage, setQRImage] = useState('');
+
+    const reset = () => {
+        setQRValue('')
+    }
+
 
     const shareQR = () => {
         QRImage.toDataURL((data) => {
@@ -25,7 +29,7 @@ function QRgenerator() {
     }
 
     const downloadQR = () => {
-        QRImage.toDataURL(async(data) => {
+        QRImage.toDataURL(async (data) => {
             const shareImageBase64 = {
                 title: "QR",
                 message: "Here is my QR code!",
@@ -38,11 +42,11 @@ function QRgenerator() {
             } else {
                 try {
                     const granted = await PermissionsAndroid.request(
-                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-                    {
-                        title: 'Storage Permission Required',
-                        message: 'App needs access to your storage to download the QR code image',
-                    }
+                        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                        {
+                            title: 'Storage Permission Required',
+                            message: 'App needs access to your storage to download the QR code image',
+                        }
                     );
                     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
                         console.log('Storage Permission Granted');
@@ -59,61 +63,67 @@ function QRgenerator() {
 
     const saveImage = (qr) => {
         qr = qr.split('data:image/jpeg;base64,')[1]
-        
+
         let date = new Date();
         const { fs } = RNFetchBlob;
         let filename = '/qr_' + Math.floor(date.getTime() + date.getSeconds() / 2) + '.jpeg';
         let PictureDir = fs.dirs.DownloadDir + filename;
 
         fs.writeFile(PictureDir, qr, 'base64')
-        .then(() => {
-            RNFetchBlob.android.addCompleteDownload({
-                title: '🎁 Here is your QR code!',
-                useDownloadManager: true,
-                showNotification: true,
-                notification: true,
-                path: PictureDir,
-                mime: 'image/jpeg',
-                description: 'Image',
-            });
-        })
-        .catch((err) => {console.log('ERR: ', err)})
+            .then(() => {
+                RNFetchBlob.android.addCompleteDownload({
+                    title: '🎁 Here is your QR code!',
+                    useDownloadManager: true,
+                    showNotification: true,
+                    notification: true,
+                    path: PictureDir,
+                    mime: 'image/jpeg',
+                    description: 'Image',
+                });
+            })
+            .catch((err) => { console.log('ERR: ', err) })
     }
 
     return (
         <View style={styles.container}>
-            <TextInput
-                placeholder='Type your text here...'
-                onChangeText={ val => {setQRValue(val)}}
-                
-            />
+
             <QRCode
-                value={QRvalue ? QRvalue : 'lintang'}
+                value={QRvalue ? QRvalue : 'NA'}
                 size={200}
-                // logo={{uri: yourqrlogo}}
                 logoSize={60}
                 logoBackgroundColor='transparent'
                 getRef={(ref) => setQRImage(ref)}
             />
-            <Button
-                title="Share QR"
-                icon={{ ...styles.iconButtonHome, size: 20, name: 'share' }}
-                iconContainerStyle={styles.iconButtonHomeContainer}
-                titleStyle={{ ...styles.titleButtonHome, fontSize: 20 }}
-                buttonStyle={{...styles.buttonHome, height: 50}}
-                containerStyle={{...styles.buttonHomeContainer, marginTop:20, marginBottom:10}}
-                onPress={shareQR}
+
+            <TextInput
+                placeholder='Nombre del Alumno'
+                value={QRvalue}
+                onChangeText={(QRvalue) => setQRValue(QRvalue)}
+                style={{ margin: 30, fontSize: 30 }}
+
             />
-            <Button
-                title="Download"
-                icon={{ ...styles.iconButtonHome, size: 20, name: 'file-download' }}
-                iconContainerStyle={styles.iconButtonHomeContainer}
-                titleStyle={{ ...styles.titleButtonHome, fontSize: 20 }}
-                buttonStyle={{...styles.buttonHome, height: 50}}
-                containerStyle={{...styles.buttonHomeContainer, marginTop:10, marginBottom:10}}
-                onPress={downloadQR}
+
+            <TextInput
+                placeholder='Nombre del Alumno'
+                value={QRvalue}
+                onChangeText={(QRvalue) => setQRValue(QRvalue)}
+                style={{ margin: 30, fontSize: 30 }}
+
             />
-            
+
+            <View style={{ ...styles.buttonView }}>
+
+                <TouchableOpacity
+                    onPress={downloadQR}
+                    style={{ ...styles.button }}
+                >
+                    <Text
+                        style={{ ...styles.textButton }}> Descargar Qr </Text>
+                </TouchableOpacity>
+            </View>
+
+
+
         </View>
     );
 }

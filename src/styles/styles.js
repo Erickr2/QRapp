@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     iconButtonHome: {
         type: 'material',
         size: 50,
-        color: 'white',
+        color: 'blue',
     },
     titleButtonHome: { 
         fontWeight: '700', 
@@ -29,6 +29,25 @@ const styles = StyleSheet.create({
         marginHorizontal: 50,
         marginVertical: 20,
     },
+    button: {
+        alignSelf: 'center',
+        borderRadius: 10,
+        paddingVertical: 15,
+        width: '40%',
+        backgroundColor: 'dodgerblue',
+        margin: 21,
+        alignItems: 'center',
+
+    },
+    textButton: {
+        fontSize: 20,
+        textAlign: 'center',
+        color: 'white',
+    },
+    buttonView: {
+        flexDirection: 'row',
+        margin:20
+    }
 });
 
 export default styles;
