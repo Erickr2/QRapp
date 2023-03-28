@@ -10,23 +10,22 @@ function QRgenerator() {
 
     const [QRvalue, setQRValue] = useState('');
     const [QRImage, setQRImage] = useState('');
+    const [Form, setForm] = useState('')
 
-    const reset = () => {
-        setQRValue('')
-    }
+    const handle = (nombre,valor) => {
+        setForm(
+            {
+                ...Form,
+            [nombre]:valor
+        }),
+        setQRValue(JSON.stringify(Form, null, 2))   
+      }
 
+      const imprimir = () => {
+        console.log(JSON.stringify(Form, null, 2))
+        setForm('')
+      }
 
-    const shareQR = () => {
-        QRImage.toDataURL((data) => {
-            const shareImageBase64 = {
-                title: "QR",
-                message: "Here is my QR code!",
-                url: `data:image/jpeg;base64,${data}`
-            };
-            setQRImage(String(shareImageBase64.url));
-            Share.open(shareImageBase64);
-        })
-    }
 
     const downloadQR = () => {
         QRImage.toDataURL(async (data) => {
@@ -97,16 +96,16 @@ function QRgenerator() {
 
             <TextInput
                 placeholder='Nombre del Alumno'
-                value={QRvalue}
-                onChangeText={(QRvalue) => setQRValue(QRvalue)}
+                value={Form}
+                onChangeText={(nombre) => handle('nombre' ,nombre)}
                 style={{ margin: 30, fontSize: 30 }}
 
             />
 
             <TextInput
-                placeholder='Nombre del Alumno'
-                value={QRvalue}
-                onChangeText={(QRvalue) => setQRValue(QRvalue)}
+                placeholder='Matricula'
+                value={Form}
+                onChangeText={(matricula) => handle('matricula' ,matricula)}
                 style={{ margin: 30, fontSize: 30 }}
 
             />
@@ -114,7 +113,7 @@ function QRgenerator() {
             <View style={{ ...styles.buttonView }}>
 
                 <TouchableOpacity
-                    onPress={downloadQR}
+                    onPress={() => downloadQR(setForm(''))}
                     style={{ ...styles.button }}
                 >
                     <Text
@@ -129,3 +128,18 @@ function QRgenerator() {
 }
 
 export default QRgenerator
+
+
+
+
+/*   const shareQR = () => {
+        QRImage.toDataURL((data) => {
+            const shareImageBase64 = {
+                title: "QR",
+                message: "Here is my QR code!",
+                url: `data:image/jpeg;base64,${data}`
+            };
+            setQRImage(String(shareImageBase64.url));
+            Share.open(shareImageBase64);
+        })
+    } */
