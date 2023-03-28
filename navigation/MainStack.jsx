@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Welcome from '../src/screens/Welcome'
 import InputG from '../src/screens/InputGroup'
 import QrGenerator from '../src/screens/QrGenerator';
+import FormState from '../src/screens/FormState';
 
 const WelcomeStackNavigator = createNativeStackNavigator();
 
@@ -38,6 +39,11 @@ function MyStack() {
                 component={QrGenerator}
             />
 
+            <WelcomeStackNavigator.Screen
+                name='Pruebas'
+                component={FormState}
+            />
+
 
         </WelcomeStackNavigator.Navigator>
 
@@ -58,6 +64,8 @@ function MyTabs() {
             <tab.Screen name='Welcome' component={MyStack} />
             <tab.Screen name='InputGroup' component={InputG} />
             <tab.Screen name='QRgenerator' component={QrGenerator} />
+            <tab.Screen name='Pruebas' component={FormState} />
+
         </tab.Navigator>
     )
 }
