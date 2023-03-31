@@ -2,7 +2,6 @@ import React, { useState, useRef, createRef } from 'react';
 import { View, Platform, PermissionsAndroid, Text, TouchableOpacity } from 'react-native';
 import styles from '../styles/styles';
 import QRCode from 'react-native-qrcode-svg'
-import Share from 'react-native-share'
 import RNFetchBlob from 'rn-fetch-blob'
 import TextInput from 'react-native/Libraries/Components/TextInput/TextInput';
 
@@ -12,26 +11,12 @@ function QRgenerator() {
     const [QRImage, setQRImage] = useState('');
     const [Form, setForm] = useState('')
 
-    const handle = (nombre,valor) => {
-        setForm(
-            {
-                ...Form,
-            [nombre]:valor
-        }),
-        setQRValue(JSON.stringify(Form, null, 2))   
-      }
-
-      const imprimir = () => {
-        console.log(JSON.stringify(Form, null, 2))
-        setForm('')
-      }
-
-
     const downloadQR = () => {
+
         QRImage.toDataURL(async (data) => {
             const shareImageBase64 = {
                 title: "QR",
-                message: "Here is my QR code!",
+                message: "Este es mi Qr!",
                 url: `data:image/jpeg;base64,${data}`
             };
             setQRImage(String(shareImageBase64.url))
@@ -43,15 +28,15 @@ function QRgenerator() {
                     const granted = await PermissionsAndroid.request(
                         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
                         {
-                            title: 'Storage Permission Required',
-                            message: 'App needs access to your storage to download the QR code image',
+                            title: 'Permiso de almacenamiento requerido',
+                            message: 'La aplicación necesita acceso a su almacenamiento para descargar la imagen del código QR',
                         }
                     );
                     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                        console.log('Storage Permission Granted');
+                        console.log('Permiso de almacenamiento concedido');
                         saveImage(String(shareImageBase64.url));
                     } else {
-                        console.log('Storage Permission Not Granted');
+                        console.log('Permiso de almacenamiento denegado');
                     }
                 } catch (err) {
                     console.log(err)
@@ -59,6 +44,7 @@ function QRgenerator() {
             }
         });
     }
+
 
     const saveImage = (qr) => {
         qr = qr.split('data:image/jpeg;base64,')[1]
@@ -71,7 +57,7 @@ function QRgenerator() {
         fs.writeFile(PictureDir, qr, 'base64')
             .then(() => {
                 RNFetchBlob.android.addCompleteDownload({
-                    title: '🎁 Here is your QR code!',
+                    title: 'Aquí está su código QR!',
                     useDownloadManager: true,
                     showNotification: true,
                     notification: true,
@@ -81,6 +67,15 @@ function QRgenerator() {
                 });
             })
             .catch((err) => { console.log('ERR: ', err) })
+    }
+
+    const handle = (nombre, valor) => {
+        setForm(
+            {
+                ...Form,
+                [nombre]: valor
+            }),
+            setQRValue(JSON.stringify(Form, null, 2))
     }
 
     return (
@@ -97,16 +92,24 @@ function QRgenerator() {
             <TextInput
                 placeholder='Nombre del Alumno'
                 value={Form}
-                onChangeText={(nombre) => handle('nombre' ,nombre)}
-                style={{ margin: 30, fontSize: 30 }}
+                onChangeText={(nombre) => handle('nombre', nombre)}
+                style={{ margin: 20, fontSize: 30, textAlign: 'center' }}
 
             />
 
             <TextInput
                 placeholder='Matricula'
                 value={Form}
-                onChangeText={(matricula) => handle('matricula' ,matricula)}
-                style={{ margin: 30, fontSize: 30 }}
+                onChangeText={(matricula) => handle('matricula', matricula)}
+                style={{ margin: 20, fontSize: 30, textAlign: 'center' }}
+
+            />
+
+            <TextInput
+                placeholder='Ciclo escolar'
+                value={Form}
+                onChangeText={(ciclo) => handle('ciclo escolar', ciclo)}
+                style={{ margin: 20, fontSize: 30, textAlign: 'center' }}
 
             />
 
@@ -128,18 +131,3 @@ function QRgenerator() {
 }
 
 export default QRgenerator
-
-
-
-
-/*   const shareQR = () => {
-        QRImage.toDataURL((data) => {
-            const shareImageBase64 = {
-                title: "QR",
-                message: "Here is my QR code!",
-                url: `data:image/jpeg;base64,${data}`
-            };
-            setQRImage(String(shareImageBase64.url));
-            Share.open(shareImageBase64);
-        })
-    } */

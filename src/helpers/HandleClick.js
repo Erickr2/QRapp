@@ -6,37 +6,32 @@ import { exportDataToExcel } from '../helpers/CreateExel';
 export const handleClick = async (text) => {
 
     try{
-      // Check for Permission (check if permission is already given or not)
       let isPermitedExternalStorage = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE);
 
       if(!isPermitedExternalStorage){
 
-        // Ask for permission
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
           {
-            title: "Storage permission needed",
-            buttonNeutral: "Ask Me Later",
-            buttonNegative: "Cancel",
-            buttonPositive: "OK"
+            title: "Se necesita permiso de almacenamiento",
+            buttonNeutral: "Preguntame mas tarde",
+            buttonNegative: "Cancelar",
+            buttonPositive: "De acuerdo"
           }
         );
 
         
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          // Permission Granted (calling our exportDataToExcel function)
           exportDataToExcel(text);
-          console.log("Permission granted");
+          console.log("Permiso concedido");
         } else {
-          // Permission denied
-          console.log("Permission denied");
+          console.log("Permiso denegado");
         }
       }else{
-         // Already have Permission (calling our exportDataToExcel function)
          exportDataToExcel(text);
       }
     }catch(e){
-      console.log('Error while checking permission');
+      console.log('Error al revisar permisos');
       console.log(e);
       return
     }
