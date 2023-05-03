@@ -48,11 +48,8 @@ const InputGroup = () => {
 
   const [text, onChangeText] = useState('');
 
-<<<<<<< HEAD
   const navigation = useNavigation();
 
-=======
->>>>>>> 28c12b38334f560780e4944df9f8a89d0c0f8384
   const reset = () => { //pasar funcion para hacer limpieza del input 
     onChangeText('');
   }
@@ -82,11 +79,7 @@ const InputGroup = () => {
       />
 
       <TouchableOpacity
-<<<<<<< HEAD
         onPress={() => navigation.navigate("Camera", {grupo:text}, reset())} //aqui se llama la funcion para abrir la camara y pasar asistencia 
-=======
-        onPress={() => navigation.navigate("QRgenerator")} //aqui se llama la funcion para abrir la camara y pasar asistencia 
->>>>>>> 28c12b38334f560780e4944df9f8a89d0c0f8384
         style={{ ...styles.button }}
         disabled={(!text || text.length < 4)? true : false}
       >
