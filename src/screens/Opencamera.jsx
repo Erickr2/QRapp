@@ -3,9 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Alert, TouchableOpacity, ToastAndroid } from 'react-native'
 import { RNCamera } from 'react-native-camera'
 import QRCodeScanner from 'react-native-qrcode-scanner'
-import { Prueba } from './prueba'
-import { Button } from 'react-native-share'
-import { useNavigation } from '@react-navigation/native'
 import { exportDataToExcel } from '../helpers/CreateExel'
 
 const styles = StyleSheet.create({
