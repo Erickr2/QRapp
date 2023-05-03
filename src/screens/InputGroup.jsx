@@ -1,9 +1,6 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-
-import { handleClick } from '../helpers/HandleClick';
-import {QRgenerator} from './QrGenerator';
-
 
 
 const styles = StyleSheet.create({
@@ -51,7 +48,9 @@ const InputGroup = () => {
 
   const [text, onChangeText] = useState('');
 
-  const reset = () => {
+  const navigation = useNavigation();
+
+  const reset = () => { //pasar funcion para hacer limpieza del input 
     onChangeText('');
   }
 
@@ -80,8 +79,9 @@ const InputGroup = () => {
       />
 
       <TouchableOpacity
-        onPress={() => navigation.navigate("QRgenerator")} //aqui se puede probar el modulo de cvs
+        onPress={() => navigation.navigate("Camera", {grupo:text}, reset())} //aqui se llama la funcion para abrir la camara y pasar asistencia 
         style={{ ...styles.button }}
+        disabled={(!text || text.length < 4)? true : false}
       >
         <Text
           style={{ ...styles.textButton }}> Siguiente </Text>
