@@ -7,8 +7,9 @@ import Icon from 'react-native-vector-icons/Ionicons'
 //screens
 import Welcome from '../src/screens/Welcome'
 import InputG from '../src/screens/InputGroup'
-import QrGenerator from '../src/screens/QrGenerator';
+import QrGenerator from '../src/screens/QrGenerator'
 import { Opencamera } from '../src/screens/Opencamera';
+
 
 
 
@@ -40,6 +41,10 @@ function MyStack() {
                 name='QRgenerator'
                 component={QrGenerator}
             />
+            <WelcomeStackNavigator.Screen
+                            name='Camera'
+                            component={Camera}
+                        />
 
             <WelcomeStackNavigator.Screen
                 name='Camera'
@@ -80,6 +85,7 @@ function MyTabs() {
             <tab.Screen name='Captura de grupo' component={InputG} />
             <tab.Screen name='Camera' component={Opencamera} />
             <tab.Screen name='Generador Qr' component={QrGenerator} />
+            <tab.Screen name='Camera' component={Camera} />
 
 
         </tab.Navigator>
